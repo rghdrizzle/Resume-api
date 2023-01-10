@@ -6,7 +6,7 @@ orbs:
 jobs:
   azure-deployment: 
     docker:
-      - image: rghdrizzle/az-tf-k8s
+      - image: mcr.microsoft.com/azure-functions/python:4-python3.9
     steps:
       - checkout 
       - azure-cli/install
