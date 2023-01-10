@@ -11,9 +11,6 @@ jobs:
       - checkout 
       - azure-cli/install
       - run:
-          name: Install Azure functions tools
-          command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
-      - run:
           name: azure login
           command: az login --tenant "${AZURE_TENANT}"
       - run:
