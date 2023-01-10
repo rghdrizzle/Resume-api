@@ -5,11 +5,13 @@ orbs:
   azure-cli: circleci/azure-cli@1.2.2
 jobs:
   azure-deployment: 
-    docker:
-      - image: mcr.microsoft.com/azure-functions/python:4-python3.9
+    executor: node/default
     steps:
       - checkout 
       - azure-cli/install
+      - run:
+          name: Install Azure functions tools
+          command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
       - run:
           name: azure login
           command: az login --tenant "${AZURE_TENANT}"
