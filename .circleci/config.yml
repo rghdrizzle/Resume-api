@@ -1,4 +1,3 @@
-
 version: 2.1
 orbs:
   python: circleci/python@1.5.0
@@ -6,18 +5,26 @@ orbs:
   azure-cli: circleci/azure-cli@1.2.2
 jobs:
   azure-deployment: 
-    machine:
-      image: ubuntu-2004:current
+    docker:
+      - image: rghdrizzle/az-tf-k8s
     steps:
       - checkout 
       - azure-cli/install
       - run:
+          name: Install Azure functions tools
+          command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
+      - run:
           name: azure login
           command: az login --tenant "${AZURE_TENANT}"
+      - run:
+          name: azure functions list
+          command: az functionapp list
+      - run:
+          name: deploying to function app
+          command: func azure functionapp publish $FUNCTION_APP_NAME --python
+
 
          
-
-
 workflows:
   function-deployment: 
     
