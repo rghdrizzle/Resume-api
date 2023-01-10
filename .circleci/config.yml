@@ -1,6 +1,5 @@
 version: 2.1
 orbs:
-  python: circleci/python@1.5.0
   node: circleci/node@4.1.0
   terraform: circleci/terraform@3.1.0
   azure-cli: circleci/azure-cli@1.2.2
@@ -15,7 +14,7 @@ jobs:
           command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
       - run:
           name: azure login
-          command: az login --tenant "${AZURE_TENANT}"
+          command: az login --tenant "${AZURE_TENANT}" -p ${AZPASS}
       - run:
           name: azure functions list
           command: az functionapp list
