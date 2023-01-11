@@ -25,7 +25,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         return data
     
     
-        return func.HttpResponse("Error: No JSON files found in the container.", status_code=404)
+        
    
    
     
