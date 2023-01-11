@@ -19,7 +19,7 @@ jobs:
           name: azure functions list
           command: az functionapp list
       - run:
-          name: deploying to function app
+          name: deploying to function app 
           command: func azure functionapp publish $FUNCTION_APP_NAME --python
 
 
