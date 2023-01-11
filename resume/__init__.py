@@ -5,9 +5,9 @@ import json
 import os
 
 STORAGE_CONNECTION_STRING=os.environ['AzureWebJobsStorage']
-CONTAINER_NAME="resume-api"
-ACCOUNT_URL="https://csg100320021c59416d.blob.core.windows.net"
-ACCOUNT_KEY="1oxXjnfPZgGXNh8n7j5fw35LYPAevIL3341ZvWntBkftNkGAwOVgoSUVKKUPYBkLEcCWtLK2bYci+AStg2SiJA=="
+CONTAINER_NAME="resume"
+ACCOUNT_URL="https://reusmestorage.blob.core.windows.net"
+ACCOUNT_KEY="s7nsR0EvtJ9XOasiSFsNzQVUiJJHDWx65G0i04iNb/i8CBvlqHsxk8yhbIL7BBPtyJ7RpNQyjNYT+ASt6cx83w=="
 BLOBNAME="resume.json"
 headers = {'Accept': 'application/json'}
 def main(req: func.HttpRequest) -> func.HttpResponse:
