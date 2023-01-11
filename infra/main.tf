@@ -1,4 +1,12 @@
 terraform {
+     cloud {
+    organization = "rghdrizzle"
+
+    workspaces {
+      name = "resume-api"
+    }
+  }
+  
   required_providers{
     azurerm={
         source  = "hashicorp/azurerm"
@@ -63,5 +71,8 @@ resource "azurerm_function_app" "resumefa" {
 
   
 }
+
+
+
 
 
