@@ -22,10 +22,38 @@ jobs:
           name: deploying to function app 
           command: func azure functionapp publish $FUNCTION_APP_NAME 
 
-
+  terraform:
+    machine: 
+      image: ubuntu-2004
+    steps:
+      - azure-cli/install
+      - checkout
+      - run:
+          name: azure login
+          command: az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant "${AZURE_TENANT}" 
+      - run:
+          name: terraform cloud login
+          command:  >-
+            echo "credentials \"app.terraform.io\" {token =
+            \"$TF_API\"}" > $HOME/.terraformrc  
+      - terraform/init:
+          path: ./infra
+      - terraform/plan:
+          path: ./infra
+      - terraform/apply:
+          path: ./infra
          
 workflows:
   function-deployment: 
     
     jobs:
-      -  azure-deployment
+      - terraform
+      - azure-deployment:
+          requires:
+            - terraform
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: main
+          
