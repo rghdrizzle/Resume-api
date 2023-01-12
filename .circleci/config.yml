@@ -48,13 +48,12 @@ workflows:
   function-deployment: 
     
     jobs:
-      - terraform
-      - azure-deployment:
-          requires:
-            - terraform
+      - terraform:
           filters:
             tags:
               only: /^v.*/
             branches:
               ignore: main
-          
+
+      - azure-deployment
+         
