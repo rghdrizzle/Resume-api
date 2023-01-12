@@ -14,18 +14,47 @@ jobs:
           command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
       - run:
           name: azure login
-          command: az login --tenant "${AZURE_TENANT}" -p ${AZPASS}
+          command: az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant "${AZURE_TENANT}" 
       - run:
           name: azure functions list
           command: az functionapp list
       - run:
           name: deploying to function app 
-          command: func azure functionapp publish $FUNCTION_APP_NAME --python
+          command: func azure functionapp publish $FUNCTION_APP_NAME 
 
-
+  terraform:
+    docker:
+      - image: rghdrizzle/az-tf-k8s
+    steps:
+      - azure-cli/install
+     
+      - checkout
+      - run:
+          name: azure login
+          command: az login --tenant "${AZURE_TENANT}" 
+      - run:
+          name: terraform cloud login
+          command:  >-
+            echo "credentials \"app.terraform.io\" {token =
+            \"$TF_API\"}" > $HOME/.terraformrc  
+      - terraform/init:
+          path: ./infra
+      - terraform/plan:
+          path: ./infra
+      - terraform/apply:
+          path: ./infra
          
 workflows:
   function-deployment: 
     
     jobs:
-      -  azure-deployment
+      - terraform
+      - azure-deployment:
+          requires:
+            - terraform
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: main
+          
