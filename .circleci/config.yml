@@ -23,8 +23,8 @@ jobs:
           command: func azure functionapp publish $FUNCTION_APP_NAME 
 
   terraform:
-    machine: 
-      image: ubuntu-2004:current
+    docker:
+      - image: rghdrizzle/az-tf-k8s
     steps:
       - azure-cli/install
       - terraform/install:
