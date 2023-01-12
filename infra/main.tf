@@ -10,7 +10,7 @@ terraform {
   required_providers{
     azurerm={
         source  = "hashicorp/azurerm"
-      version = "=3.0.0"
+      version = ">=3.0.0"
     }
   }
 }
@@ -37,40 +37,34 @@ resource "azurerm_storage_container" "resume" {
     container_access_type = "private"
   
 }
-resource "azurerm_app_service_plan" "appplan" {
+resource "azurerm_service_plan" "appplan" {
     name="resumeplan"
     location = azurerm_resource_group.resume-api.location
     resource_group_name = azurerm_resource_group.resume-api.name
-    kind="Linux"
-    reserved = true
+    os_type = "Linux"
     
-    sku{
-        tier = "Dynamic"
-        size = "Y1"
-    }
+    sku_name = "Y1"
 }
 
 
-resource "azurerm_function_app" "resumefa" {
+resource "azurerm_linux_function_app" "resumefa" {
     name="resume-app"
     location = azurerm_resource_group.resume-api.location
     resource_group_name = azurerm_resource_group.resume-api.name
-    app_service_plan_id= azurerm_app_service_plan.appplan.id
+    service_plan_id = azurerm_service_plan.appplan.id
     storage_account_name = azurerm_storage_account.resumestor.name
     storage_account_access_key = azurerm_storage_account.resumestor.primary_access_key
-    os_type                    = "linux"
-    version                    = "~4" 
 
-    app_settings ={
-        FUNCTION_WORKER_RUNTIME ="python"
-
-    }
+    
     site_config {
-    linux_fx_version = "python|3.9"
+    application_stack {
+      python_version = "3.9"
+    }
   }
-
   
 }
+
+
 
 
 
