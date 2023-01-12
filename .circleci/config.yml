@@ -55,5 +55,10 @@ workflows:
             branches:
               ignore: main
 
-      - azure-deployment
+      - azure-deployment:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: main
          
