@@ -20,7 +20,7 @@ jobs:
           command: az functionapp list
       - run:
           name: deploying to function app 
-          command: func azure functionapp publish $FUNCTION_APP_NAME 
+          command: func azure functionapp publish circleci-test --python
 
   terraform:
     docker:
@@ -55,10 +55,6 @@ workflows:
             branches:
               ignore: main
 
-      - azure-deployment:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: main
+      - azure-deployment
+         
          
