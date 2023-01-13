@@ -51,10 +51,15 @@ workflows:
       - terraform:
           filters:
             tags:
-              only: /^v.*/
+              only: /^v.t*/
             branches:
               ignore: main
 
-      - azure-deployment
+      - azure-deployment:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: main
          
          
