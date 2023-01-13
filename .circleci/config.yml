@@ -14,7 +14,7 @@ jobs:
           command: sudo npm i -g azure-functions-core-tools@3 --unsafe-perm true
       - run:
           name: azure login
-          command: az login --tenant "${AZURE_TENANT}" 
+          command: az login --service-principal -u $CLIENT_ID -p $CLIENT_SECRET --tenant "${AZURE_TENANT}" 
       - run:
           name: azure functions list
           command: az functionapp list
