@@ -16,9 +16,5 @@
       "direction": "out",
       "name": "$return"
     }
-  ],
-  "appSettings": {
-    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=csg100320021c59416d;AccountKey=1oxXjnfPZgGXNh8n7j5fw35LYPAevIL3341ZvWntBkftNkGAwOVgoSUVKKUPYBkLEcCWtLK2bYci+AStg2SiJA==;EndpointSuffix=core.windows.net"
-    "ContainerName": "resume-api"
-  }
+  ]
 }
