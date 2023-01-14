@@ -51,7 +51,7 @@ workflows:
       - terraform:
           filters:
             tags:
-              only: /^v.t*/
+              only: /^t.*/
             branches:
               ignore: main
 
