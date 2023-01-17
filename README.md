@@ -1,5 +1,7 @@
 # Resume-api
 A Resume API with Azure functions which displays your resume information in JSON
+
+[![CircleCI](https://circleci.com/gh/rghdrizzle/Resume-api.svg?style=shield)](https://app.circleci.com/pipelines/github/rghdrizzle/Resume-api)
 <h2>REQUIREMENTS</h2>
 <ul>
 <li>Python 3.7 or later</li>
